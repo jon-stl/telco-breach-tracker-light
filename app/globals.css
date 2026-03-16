@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Roboto:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  background: #f0f3f8;
+  color: #2a314d;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #e8ecf4; }
+::-webkit-scrollbar-thumb { background: #c0c8dc; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a314d; }
+
+/* Selection */
+::selection { background: rgba(42, 49, 77, 0.15); color: #2a314d; }
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Float gentle animation for background shapes */
+@keyframes floatA {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%       { transform: translate(18px, -22px) rotate(3deg); }
+  66%       { transform: translate(-10px, 12px) rotate(-2deg); }
+}
+
+@keyframes floatB {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%       { transform: translate(-20px, 16px) rotate(-4deg); }
+}
+
+@keyframes floatC {
+  0%, 100% { transform: translate(0, 0); }
+  40%       { transform: translate(12px, 20px); }
+  80%       { transform: translate(-8px, -10px); }
+}
+
+/* Pulse for the days badge ring */
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.15; transform: scale(1.06); }
+}
+
+/* Blink for live dot */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* Scan line (for timeline) */
+@keyframes scan {
+  0%   { left: -10%; }
+  100% { left: 110%; }
+}
+
+/* Count up ease */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+input, select, button {
+  font-family: 'Roboto', sans-serif;
+}
