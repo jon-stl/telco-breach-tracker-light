@@ -105,35 +105,11 @@ function UpdatedBadge() {
 // ─── STL Logo ─────────────────────────────────────────────────────────────────
 function STLLogo() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-      <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-        <rect x="0"  y="0"  width="14" height="14" rx="2" fill="#e3051c" />
-        <rect x="18" y="0"  width="14" height="14" rx="2" fill="#f39200" />
-        <rect x="0"  y="18" width="14" height="14" rx="2" fill="#2a314d" />
-        <rect x="18" y="18" width="14" height="14" rx="2" fill="#2a314d" opacity="0.4" />
-      </svg>
-      <div>
-        <div style={{
-          fontFamily: "'PT Sans', sans-serif",
-          fontSize: '0.88rem',
-          fontWeight: 700,
-          letterSpacing: '0.12em',
-          color: '#2a314d',
-          textTransform: 'uppercase',
-          lineHeight: 1.1,
-        }}>
-          STL Partners
-        </div>
-        <div style={{
-          fontFamily: "'Roboto', sans-serif",
-          fontSize: '0.58rem',
-          color: '#8896b0',
-          letterSpacing: '0.1em',
-        }}>
-          RESEARCH & ANALYSIS
-        </div>
-      </div>
-    </div>
+    <img
+      src="/STL_Logo.png"
+      alt="STL Partners"
+      style={{ height: '40px', width: 'auto', display: 'block' }}
+    />
   );
 }
 
