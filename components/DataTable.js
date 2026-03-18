@@ -1,24 +1,14 @@
 'use client';
 import { useState, useMemo } from 'react';
 
-const CATEGORY_COLORS = {
-  'APT / Espionage':   '#e3051c',
-  'Ransomware':        '#f39200',
-  'Data Breach':       '#7b6cf0',
-  'Malware / BPFDoor': '#00a87a',
-  'Cyberattack':       '#f39200',
-};
-
 export default function DataTable({ breaches }) {
   const [search, setSearch]               = useState('');
   const [filterCountry, setFilterCountry] = useState('All');
-  const [filterCategory, setFilterCategory] = useState('All');
   const [sortKey, setSortKey]             = useState('attackDate');
   const [sortDir, setSortDir]             = useState('desc');
   const [expandedId, setExpandedId]       = useState(null);
 
-  const countries  = ['All', ...Array.from(new Set(breaches.map(b => b.country))).sort()];
-  const categories = ['All', ...Array.from(new Set(breaches.map(b => b.attackCategory))).sort()];
+  const countries = ['All', ...Array.from(new Set(breaches.map(b => b.country))).sort()];
 
   const filtered = useMemo(() => {
     let result = breaches;
@@ -27,22 +17,19 @@ export default function DataTable({ breaches }) {
       result = result.filter(b =>
         b.telco.toLowerCase().includes(q) ||
         b.country.toLowerCase().includes(q) ||
-        b.attacker?.toLowerCase().includes(q) ||
-        b.attackCategory.toLowerCase().includes(q)
+        b.attacker?.toLowerCase().includes(q)
       );
     }
-    if (filterCountry !== 'All')   result = result.filter(b => b.country === filterCountry);
-    if (filterCategory !== 'All')  result = result.filter(b => b.attackCategory === filterCategory);
+    if (filterCountry !== 'All') result = result.filter(b => b.country === filterCountry);
 
     return [...result].sort((a, b) => {
       let av = a[sortKey], bv = b[sortKey];
-      if (sortKey === 'attackDate')        { av = new Date(av); bv = new Date(bv); }
-      else if (sortKey === 'customersAffected') { av = av || 0; bv = bv || 0; }
+      if (sortKey === 'attackDate') { av = new Date(av); bv = new Date(bv); }
       if (av < bv) return sortDir === 'asc' ? -1 : 1;
       if (av > bv) return sortDir === 'asc' ? 1 : -1;
       return 0;
     });
-  }, [breaches, search, filterCountry, filterCategory, sortKey, sortDir]);
+  }, [breaches, search, filterCountry, sortKey, sortDir]);
 
   function toggleSort(key) {
     if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
@@ -83,8 +70,7 @@ export default function DataTable({ breaches }) {
           />
         </div>
 
-        <Select value={filterCountry}  options={countries}  onChange={setFilterCountry}  label="Country" />
-        <Select value={filterCategory} options={categories} onChange={setFilterCategory} label="Attack Type" />
+        <Select value={filterCountry} options={countries} onChange={setFilterCountry} label="Country" />
 
         <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.75rem', color: '#8896b0', whiteSpace: 'nowrap', alignSelf: 'center' }}>
           {filtered.length} of {breaches.length} incidents
@@ -97,12 +83,10 @@ export default function DataTable({ breaches }) {
           <thead>
             <tr style={{ background: '#f8f9fc' }}>
               {[
-                { key: 'telco',             label: 'Telco' },
-                { key: 'country',           label: 'Country' },
-                { key: 'attackDate',        label: 'Attack Date' },
-                { key: 'attackCategory',    label: 'Attack Type' },
-                { key: 'attacker',          label: 'Threat Actor' },
-                { key: 'customersAffected', label: 'Customers' },
+                { key: 'telco',      label: 'Telco' },
+                { key: 'country',    label: 'Country' },
+                { key: 'attackDate', label: 'Attack Date' },
+                { key: 'attacker',   label: 'Threat Actor' },
               ].map(col => (
                 <th
                   key={col.key}
@@ -156,29 +140,8 @@ export default function DataTable({ breaches }) {
                   <td style={{ padding: '12px 14px', color: '#374151', whiteSpace: 'nowrap' }}>
                     {new Date(breach.attackDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </td>
-                  <td style={{ padding: '12px 14px' }}>
-                    <span style={{
-                      background: `${CATEGORY_COLORS[breach.attackCategory] || '#8896b0'}15`,
-                      color: CATEGORY_COLORS[breach.attackCategory] || '#8896b0',
-                      border: `1px solid ${CATEGORY_COLORS[breach.attackCategory] || '#8896b0'}30`,
-                      borderRadius: '6px',
-                      padding: '3px 8px',
-                      fontSize: '0.68rem',
-                      fontWeight: 600,
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {breach.attackCategory}
-                    </span>
-                  </td>
-                  <td style={{ padding: '12px 14px', color: breach.attacker ? '#f39200' : '#c0c8dc', fontWeight: breach.attacker ? 500 : 400 }}>
-                    {breach.attacker || '—'}
-                  </td>
-                  <td style={{ padding: '12px 14px', color: breach.customersAffected ? '#2a314d' : '#c0c8dc', fontWeight: breach.customersAffected ? 600 : 400 }}>
-                    {breach.customersAffected
-                      ? (breach.customersAffected >= 1000000
-                          ? (breach.customersAffected / 1000000).toFixed(1) + 'M'
-                          : (breach.customersAffected / 1000).toFixed(0) + 'k')
-                      : '—'}
+                  <td style={{ padding: '12px 14px', color: breach.attacker && breach.attacker !== 'Unknown' ? '#f39200' : '#c0c8dc', fontWeight: breach.attacker && breach.attacker !== 'Unknown' ? 500 : 400 }}>
+                    {breach.attacker && breach.attacker !== 'Unknown' ? breach.attacker : '—'}
                   </td>
                 </tr>,
                 isExpanded && (
@@ -186,7 +149,7 @@ export default function DataTable({ breaches }) {
                     background: 'rgba(42,49,77,0.02)',
                     borderBottom: '1px solid rgba(42,49,77,0.06)',
                   }}>
-                    <td colSpan={6} style={{ padding: '16px 14px 16px 20px' }}>
+                    <td colSpan={4} style={{ padding: '16px 14px 16px 20px' }}>
                       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
                         <div style={{ flex: '2 1 300px' }}>
                           <div style={{

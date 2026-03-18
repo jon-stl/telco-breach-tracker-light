@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic';
 import DaysBadge from '../components/DaysBadge';
 import StatsRow from '../components/StatsRow';
 import BreachTimeline from '../components/BreachTimeline';
-import { CountryChart, AttackTypeChart } from '../components/Charts';
+import { CountryChart } from '../components/Charts';
+import { GlobalMap } from '../components/GlobalMap';
 import DataTable from '../components/DataTable';
 
 const FloatingBackground = dynamic(() => import('../components/FloatingBackground'), { ssr: false });
@@ -367,8 +368,8 @@ export default function Home() {
           <Card title="Incidents by Country">
             <CountryChart breaches={breaches} />
           </Card>
-          <Card title="Attack Type Distribution">
-            <AttackTypeChart breaches={breaches} />
+          <Card title="Global Incident Map">
+            <GlobalMap breaches={breaches} />
           </Card>
         </div>
 
