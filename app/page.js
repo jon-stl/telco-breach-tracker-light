@@ -244,7 +244,7 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/data/breaches.json')
+    fetch('/api/breaches')
       .then(r => r.json())
       .then(setData)
       .catch(() => setError('Failed to load breach data'));
