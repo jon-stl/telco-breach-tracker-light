@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // To change the source sheet: update SHEET_ID to the new spreadsheet's ID
 // (the long string in the Google Sheets URL after /spreadsheets/d/)
 // The sheet must be shared as "Anyone with the link → Viewer"
-const SHEET_ID = '1r90TePTD5DUiHkTAax9AAGMd-p9MzHXEO7NjX-mo0KU';
+const SHEET_ID = '1unWQy9_C2nXV8RnPXunFF4pmqIhkBmXFoC52ZdUF8nY';
 const CSV_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
 // ── Next.js route-segment cache: revalidate every 5 minutes ──────────────────
@@ -121,7 +121,7 @@ export async function GET() {
     const COL = {
       telco: 0, country: 1, attackDate: 2, disclosureDate: 3,
       details: 4, attackType: 5, attacker: 6, consequences: 7,
-      lastUpdated: 8, link: 9,
+      lastUpdated: 8, link: 9, attackClassification: 10,
     };
 
     let lastUpdatedDate = new Date(0);
@@ -140,7 +140,8 @@ export async function GET() {
       const attacker       = (row[COL.attacker]       || '').trim() || null;
       const consequences   = (row[COL.consequences]   || '').trim() || null;
       const lastUpdated    = parseDate(row[COL.lastUpdated]);
-      const link           = (row[COL.link]           || '').trim() || null;
+      const link                 = (row[COL.link]                 || '').trim() || null;
+      const attackClassification = (row[COL.attackClassification] || '').trim() || null;
 
       if (!attackDate) continue;
 
@@ -166,7 +167,8 @@ export async function GET() {
         customersAffected,
         consequences:    consequences || null,
         lastUpdated,
-        link:            link || null,
+        link:                 link || null,
+        attackClassification: attackClassification || null,
         severity,
       });
     }

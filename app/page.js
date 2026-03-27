@@ -6,7 +6,6 @@ import StatsRow from '../components/StatsRow';
 import BreachTimeline from '../components/BreachTimeline';
 import { CountryChart } from '../components/Charts';
 import { GlobalMap } from '../components/GlobalMap';
-import DataTable from '../components/DataTable';
 
 const FloatingBackground = dynamic(() => import('../components/FloatingBackground'), { ssr: false });
 
@@ -114,129 +113,6 @@ function STLLogo() {
   );
 }
 
-// ─── Threat Actor Spotlight ───────────────────────────────────────────────────
-function ThreatActors({ breaches }) {
-  const actorMap = {};
-  for (const b of breaches) {
-    let actor = b.attacker && b.attacker !== 'Unknown' ? b.attacker : null;
-    if (actor === 'Warlock?') actor = 'Warlock';
-    if (actor) {
-      if (!actorMap[actor]) actorMap[actor] = { count: 0, breaches: [], totalImpact: 0 };
-      actorMap[actor].count++;
-      if (!actorMap[actor].breaches.includes(b.telco)) actorMap[actor].breaches.push(b.telco);
-      actorMap[actor].totalImpact += b.customersAffected || 0;
-    }
-  }
-
-  const unknownCount = breaches.filter(b => !b.attacker || b.attacker === 'Unknown').length;
-  const actors = Object.entries(actorMap).sort((a, b) => b[1].count - a[1].count);
-
-  const profiles = {
-    'UNC3886': {
-      type: 'Nation-State APT',
-      origin: 'China-nexus (suspected)',
-      description: 'Sophisticated espionage group known for exploiting zero-day vulnerabilities in network devices. Targets telcos for long-term intelligence gathering using custom rootkits.',
-      color: '#e3051c',
-      icon: '🎯',
-    },
-    'Warlock': {
-      type: 'Ransomware Group',
-      origin: 'Unknown',
-      description: 'Financially motivated ransomware operator targeting European telecoms. Employs double-extortion tactics — encrypting systems while threatening to publish stolen data.',
-      color: '#f39200',
-      icon: '🔒',
-    },
-    'Assumed China/North Korea': {
-      type: 'Nation-State APT',
-      origin: 'East Asia',
-      description: 'Attribution assessed as China or North Korea-linked. Deployed BPFDoor malware — a sophisticated Linux backdoor that abuses Berkeley Packet Filter to evade detection.',
-      color: '#e3051c',
-      icon: '🎯',
-    },
-  };
-
-  return (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-      {actors.map(([name, info]) => {
-        const profile = profiles[name] || { type: 'Unknown', origin: 'Unknown', description: 'Attribution details pending investigation.', color: '#8896b0', icon: '❓' };
-        return (
-          <div key={name} style={{
-            flex: '1 1 260px',
-            background: '#f8f9fc',
-            border: `1px solid ${profile.color}25`,
-            borderTop: `3px solid ${profile.color}`,
-            borderRadius: '12px',
-            padding: '18px 20px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '10px' }}>
-              <div style={{
-                width: '36px', height: '36px', borderRadius: '10px',
-                background: `${profile.color}12`,
-                border: `1px solid ${profile.color}25`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.1rem', flexShrink: 0,
-              }}>
-                {profile.icon}
-              </div>
-              <div>
-                <div style={{ fontFamily: "'PT Sans', sans-serif", fontSize: '0.95rem', fontWeight: 700, color: '#2a314d', marginBottom: '2px' }}>
-                  {name}
-                </div>
-                <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.68rem', color: profile.color, fontWeight: 600, letterSpacing: '0.06em' }}>
-                  {profile.type} · {profile.origin}
-                </div>
-              </div>
-            </div>
-
-            <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.78rem', color: '#6b7a99', lineHeight: 1.6, marginBottom: '12px' }}>
-              {profile.description}
-            </p>
-
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <div style={{ background: '#ffffff', border: '1px solid rgba(42,49,77,0.1)', borderRadius: '8px', padding: '6px 12px', textAlign: 'center' }}>
-                <div style={{ fontFamily: "'PT Sans', sans-serif", fontSize: '1.1rem', fontWeight: 700, color: profile.color }}>{info.count}</div>
-                <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.6rem', color: '#8896b0', letterSpacing: '0.1em' }}>INCIDENTS</div>
-              </div>
-              {info.totalImpact > 0 && (
-                <div style={{ background: '#ffffff', border: '1px solid rgba(42,49,77,0.1)', borderRadius: '8px', padding: '6px 12px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: "'PT Sans', sans-serif", fontSize: '1.1rem', fontWeight: 700, color: profile.color }}>
-                    {info.totalImpact >= 1000000 ? (info.totalImpact / 1000000).toFixed(1) + 'M' : (info.totalImpact / 1000).toFixed(0) + 'k'}
-                  </div>
-                  <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.6rem', color: '#8896b0', letterSpacing: '0.1em' }}>CUSTOMERS</div>
-                </div>
-              )}
-              <div style={{ background: '#ffffff', border: '1px solid rgba(42,49,77,0.1)', borderRadius: '8px', padding: '6px 12px' }}>
-                <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.7rem', color: '#4a5568' }}>{info.breaches.join(', ')}</div>
-                <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.6rem', color: '#8896b0', letterSpacing: '0.1em', marginTop: '2px' }}>TARGETS</div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-
-      {/* Unknown attribution card */}
-      <div style={{
-        flex: '1 1 160px',
-        background: '#f8f9fc',
-        border: '1px solid rgba(42,49,77,0.1)',
-        borderRadius: '12px',
-        padding: '18px 20px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        gap: '6px',
-      }}>
-        <div style={{ fontSize: '1.8rem' }}>❓</div>
-        <div style={{ fontFamily: "'PT Sans', sans-serif", fontSize: '1.8rem', fontWeight: 700, color: '#2a314d' }}>{unknownCount}</div>
-        <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#8896b0', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1.5 }}>
-          Incidents with<br />Unknown Attribution
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Home() {
@@ -370,20 +246,6 @@ export default function Home() {
           </Card>
           <Card title="Global Incident Map">
             <GlobalMap breaches={breaches} />
-          </Card>
-        </div>
-
-        {/* ── Threat actor spotlight ────────────────────────────────────────── */}
-        <div style={{ marginBottom: 'clamp(20px, 3vw, 36px)' }}>
-          <Card title="Threat Actor Spotlight">
-            <ThreatActors breaches={breaches} />
-          </Card>
-        </div>
-
-        {/* ── Data table ───────────────────────────────────────────────────── */}
-        <div style={{ marginBottom: 'clamp(20px, 3vw, 36px)' }}>
-          <Card title="Full Incident Database — Click any row for details">
-            <DataTable breaches={breaches} />
           </Card>
         </div>
 

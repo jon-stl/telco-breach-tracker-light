@@ -17,18 +17,24 @@ function CountryFlag({ country }) {
   return <span>{flags[country] || '🌐'}</span>;
 }
 
+// Matches the color scale used in GlobalMap
+function getCountColor(count) {
+  if (count >= 4) return '#e3051c';
+  if (count >= 3) return '#d44000';
+  if (count >= 2) return '#f39200';
+  return '#2a7dc9';
+}
+
 // ─── Country Bar Chart ────────────────────────────────────────────────────────
 export function CountryChart({ breaches }) {
   const countMap = {};
-  const impactMap = {};
   for (const b of breaches) {
     countMap[b.country] = (countMap[b.country] || 0) + 1;
-    impactMap[b.country] = (impactMap[b.country] || 0) + (b.customersAffected || 0);
   }
 
   const sorted = Object.entries(countMap)
     .sort((a, b) => b[1] - a[1])
-    .map(([country, count]) => ({ country, count, impact: impactMap[country] }));
+    .map(([country, count]) => ({ country, count }));
 
   const max = sorted[0]?.count || 1;
   const [animated, setAnimated] = useState(false);
@@ -44,7 +50,7 @@ export function CountryChart({ breaches }) {
 
   return (
     <div ref={ref}>
-      {sorted.map(({ country, count, impact }, i) => (
+      {sorted.map(({ country, count }, i) => (
         <div key={country} style={{ marginBottom: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
             <span style={{
@@ -77,23 +83,11 @@ export function CountryChart({ breaches }) {
             <div style={{
               height: '100%',
               width: animated ? `${(count / max) * 100}%` : '0%',
-              background: count >= 3
-                ? 'linear-gradient(90deg, #e3051c, #f39200)'
-                : 'linear-gradient(90deg, #2a314d, #6b7a99)',
+              background: getCountColor(count),
               borderRadius: '4px',
               transition: `width ${0.6 + i * 0.1}s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.08}s`,
             }} />
           </div>
-          {impact > 0 && (
-            <div style={{
-              fontFamily: "'Roboto', sans-serif",
-              fontSize: '0.65rem',
-              color: '#8896b0',
-              marginTop: '3px',
-            }}>
-              {impact >= 1000000 ? (impact / 1000000).toFixed(1) + 'M' : (impact / 1000).toFixed(0) + 'k'} customers affected
-            </div>
-          )}
         </div>
       ))}
     </div>
@@ -126,7 +120,7 @@ export function AttackTypeChart({ breaches }) {
     return () => obs.disconnect();
   }, []);
 
-  const cx = 90, cy = 90, r = 65, innerR = 42;
+  const cx = 90, cy = 90, r = 65;
   const circumference = 2 * Math.PI * r;
   let cumulativePct = 0;
   const gap = 0.015;
