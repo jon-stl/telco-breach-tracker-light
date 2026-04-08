@@ -12,7 +12,7 @@ const CATEGORY_COLORS = {
 function CountryFlag({ country }) {
   const flags = {
     'Netherlands': '🇳🇱', 'Singapore': '🇸🇬', 'South Korea': '🇰🇷',
-    'UK': '🇬🇧', 'France': '🇫🇷', 'Belgium': '🇧🇪',
+    'UK': '🇬🇧', 'France': '🇫🇷', 'Belgium': '🇧🇪', 'Canada': '🇨🇦',
   };
   return <span>{flags[country] || '🌐'}</span>;
 }

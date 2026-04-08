@@ -237,7 +237,7 @@ export default function BreachTimeline({ breaches }) {
                 marginBottom: '12px',
               }}>
                 {activeBrech.country} · {new Date(activeBrech.attackDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-                {activeBrech.attacker && ' · Attacker: '}
+                {activeBrech.attacker && ' · Attack classification: '}
                 {activeBrech.attacker && <span style={{ color: '#f39200', fontWeight: 600 }}>{activeBrech.attacker}</span>}
               </div>
               <p style={{
@@ -258,7 +258,7 @@ export default function BreachTimeline({ breaches }) {
                   margin: '8px 0 0',
                   fontStyle: 'italic',
                 }}>
-                  <strong style={{ color: '#f39200', fontStyle: 'normal' }}>Consequences: </strong>
+                  <strong style={{ color: '#f39200', fontStyle: 'normal' }}>Attacker: </strong>
                   {activeBrech.consequences}
                 </p>
               )}
