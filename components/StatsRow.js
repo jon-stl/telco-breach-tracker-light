@@ -50,10 +50,10 @@ function StatCard({ value, label, suffix = '', icon, color, bgColor, delay = 0 }
     <div
       ref={countRef}
       style={{
-        flex: '1 1 170px',
+        flex: '1 1 240px',
         background: '#ffffff',
         borderRadius: '16px',
-        padding: '24px 20px',
+        padding: '28px 24px',
         textAlign: 'center',
         boxShadow: '0 2px 12px rgba(42,49,77,0.08), 0 1px 3px rgba(42,49,77,0.05)',
         border: '1px solid rgba(42,49,77,0.08)',
@@ -84,29 +84,29 @@ function StatCard({ value, label, suffix = '', icon, color, bgColor, delay = 0 }
 
       {/* Icon bubble */}
       <div style={{
-        width: '44px', height: '44px',
+        width: '48px', height: '48px',
         borderRadius: '12px',
         background: bgColor,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '1.3rem',
-        margin: '0 auto 12px',
+        fontSize: '1.4rem',
+        margin: '0 auto 14px',
       }}>
         {icon}
       </div>
 
       <div style={{
         fontFamily: "'PT Sans', sans-serif",
-        fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+        fontSize: 'clamp(2rem, 4vw, 3rem)',
         fontWeight: 700,
         color: '#2a314d',
         lineHeight: 1,
-        marginBottom: '6px',
+        marginBottom: '8px',
       }}>
         {display}{suffix}
       </div>
       <div style={{
         fontFamily: "'Roboto', sans-serif",
-        fontSize: '0.72rem',
+        fontSize: '0.75rem',
         fontWeight: 500,
         letterSpacing: '0.1em',
         color: '#8896b0',
@@ -120,22 +120,30 @@ function StatCard({ value, label, suffix = '', icon, color, bgColor, delay = 0 }
 
 export default function StatsRow({ breaches }) {
   const totalIncidents = breaches.length;
-  const operators = new Set(breaches.map(b => b.telco)).size;
-  const attackers = new Set(
-    breaches.map(b => b.consequences).filter(a => {
-      if (!a) return false;
-      const s = a.trim();
-      return s && s !== 'Unknown' && !s.includes('?');
-    })
-  ).size;
-  const countries = new Set(breaches.map(b => b.country)).size;
+  const operators      = new Set(breaches.map(b => b.telco)).size;
+  const countries      = new Set(breaches.map(b => b.country)).size;
 
   return (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <StatCard value={totalIncidents} label="Total Incidents" icon="📋" color="#e3051c" bgColor="rgba(227,5,28,0.08)" delay={0} />
-      <StatCard value={operators} label="Telecom Operators Attacked" icon="📡" color="#059669" bgColor="rgba(5,150,105,0.08)" delay={100} />
-      <StatCard value={attackers} label="Attackers Identified" icon="🎯" color="#2a314d" bgColor="rgba(42,49,77,0.07)" delay={200} />
-      <StatCard value={countries} label="Countries Affected" icon="🌍" color="#f39200" bgColor="rgba(243,146,0,0.08)" delay={300} />
+    <div>
+      {/* Qualifier label */}
+      <div style={{
+        textAlign: 'center',
+        fontFamily: "'Roboto', sans-serif",
+        fontSize: '0.75rem',
+        fontWeight: 500,
+        letterSpacing: '0.12em',
+        color: '#8896b0',
+        textTransform: 'uppercase',
+        marginBottom: '14px',
+      }}>
+        Since April 2025
+      </div>
+
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <StatCard value={totalIncidents} label="Incidents Tracked"       icon="📋" color="#e3051c" bgColor="rgba(227,5,28,0.08)"   delay={0}   />
+        <StatCard value={operators}      label="Operators Targeted"       icon="📡" color="#059669" bgColor="rgba(5,150,105,0.08)" delay={100} />
+        <StatCard value={countries}      label="Countries Affected"       icon="🌍" color="#f39200" bgColor="rgba(243,146,0,0.08)" delay={200} />
+      </div>
     </div>
   );
 }

@@ -5,12 +5,37 @@ import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
 const COUNTRY_COORDS = {
-  'Netherlands': [5.3,   52.3 ],
-  'Singapore':   [103.8,  1.35],
-  'South Korea': [127.9, 37.5 ],
-  'UK':          [-3.4,  55.4 ],
-  'France':      [2.2,   46.2 ],
-  'Belgium':     [4.5,   50.85],
+  'Netherlands': [5.3,    52.3 ],
+  'Singapore':   [103.8,   1.35],
+  'South Korea': [127.9,  37.5 ],
+  'UK':          [-3.4,   55.4 ],
+  'France':      [2.2,    46.2 ],
+  'Belgium':     [4.5,    50.85],
+  'Germany':     [10.4,   51.2 ],
+  'Spain':       [-3.7,   40.4 ],
+  'Italy':       [12.6,   42.5 ],
+  'Sweden':      [18.6,   59.3 ],
+  'Norway':      [10.7,   59.9 ],
+  'Denmark':     [10.0,   56.0 ],
+  'Finland':     [27.0,   61.9 ],
+  'Portugal':    [-8.2,   39.4 ],
+  'Switzerland': [8.2,    46.8 ],
+  'Austria':     [14.5,   47.5 ],
+  'USA':         [-98.6,  39.8 ],
+  'Canada':      [-96.8,  56.1 ],
+  'Brazil':      [-51.9,  -14.2],
+  'Mexico':      [-102.6, 23.6 ],
+  'Australia':   [133.8,  -25.3],
+  'Japan':       [138.2,  36.2 ],
+  'India':       [78.7,   22.2 ],
+  'Indonesia':   [113.9,  -0.8 ],
+  'Thailand':    [101.0,  15.9 ],
+  'Vietnam':     [108.0,  16.2 ],
+  'UAE':         [54.4,   24.0 ],
+  'Saudi Arabia':[45.1,   24.7 ],
+  'South Africa':[ 25.1, -29.0 ],
+  'Nigeria':     [  8.7,   9.1 ],
+  'Kenya':       [ 37.9,  -0.1 ],
 };
 
 const LABEL_OFFSETS = {
@@ -246,7 +271,7 @@ export function GlobalMap({ breaches }) {
           </div>
         ))}
         <div style={{ marginLeft: 'auto', color: '#aab4c8', fontStyle: 'italic' }}>
-          Hover markers for details
+          Hover over marker for detail
         </div>
       </div>
     </div>

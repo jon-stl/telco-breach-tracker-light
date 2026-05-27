@@ -229,7 +229,7 @@ export default function Home() {
 
         {/* ── Timeline ─────────────────────────────────────────────────────── */}
         <div style={{ marginBottom: 'clamp(20px, 3vw, 36px)' }}>
-          <Card title="Incident Timeline — Click nodes to explore">
+          <Card title="Incident Timeline — Hover over marker for detail">
             <BreachTimeline breaches={breaches} />
           </Card>
         </div>

@@ -1,13 +1,20 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-const CATEGORY_COLORS = {
+const KNOWN_COLORS = {
   'APT / Espionage':   '#e3051c',
   'Ransomware':        '#f39200',
   'Data Breach':       '#7b6cf0',
   'Malware / BPFDoor': '#00a87a',
-  'Cyberattack':       '#f39200',
+  'Cyberattack':       '#4a9eff',
 };
+const FALLBACK_PALETTE = ['#6366f1', '#0891b2', '#d97706', '#9333ea', '#059669', '#dc2626'];
+function categoryColor(name) {
+  if (KNOWN_COLORS[name]) return KNOWN_COLORS[name];
+  let hash = 0;
+  for (const c of (name || '')) hash = (hash * 31 + c.charCodeAt(0)) & 0xffffffff;
+  return FALLBACK_PALETTE[Math.abs(hash) % FALLBACK_PALETTE.length];
+}
 
 function CountryFlag({ country }) {
   const flags = {
@@ -105,7 +112,7 @@ export function AttackTypeChart({ breaches }) {
   const data = Object.entries(counts).map(([name, value]) => ({
     name, value,
     pct: value / total,
-    color: CATEGORY_COLORS[name] || '#8896b0',
+    color: categoryColor(name),
   }));
 
   const [hovered, setHovered] = useState(null);

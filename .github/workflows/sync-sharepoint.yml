@@ -1,0 +1,37 @@
+name: Sync SharePoint Data
+
+# Runs daily at 06:00 UTC, or manually from GitHub → Actions → "Run workflow"
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # No file commits needed — Vercel re-reads from SharePoint on each request via the API route.
+    # This workflow is kept as a manual health-check / data-validation step.
+    steps:
+      - name: Verify SharePoint connectivity
+        run: |
+          TOKEN=$(curl -s -X POST \
+            "https://login.microsoftonline.com/${{ secrets.AZURE_TENANT_ID }}/oauth2/v2.0/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "client_id=${{ secrets.AZURE_CLIENT_ID }}&client_secret=${{ secrets.AZURE_CLIENT_SECRET }}&scope=https://graph.microsoft.com/.default&grant_type=client_credentials" \
+            | jq -r .access_token)
+
+          if [ "$TOKEN" = "null" ] || [ -z "$TOKEN" ]; then
+            echo "ERROR: Could not obtain access token. Check Azure credentials."
+            exit 1
+          fi
+
+          HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $TOKEN" \
+            "https://graph.microsoft.com/v1.0/sites/${{ secrets.SHAREPOINT_SITE_ID }}/drives/${{ secrets.SHAREPOINT_DRIVE_ID }}/root:/${{ secrets.SHAREPOINT_FILE_PATH }}:/workbook/worksheets")
+
+          if [ "$HTTP" != "200" ]; then
+            echo "ERROR: SharePoint workbook not accessible (HTTP $HTTP). Check SHAREPOINT_* secrets."
+            exit 1
+          fi
+
+          echo "SharePoint connectivity OK (HTTP $HTTP)"
