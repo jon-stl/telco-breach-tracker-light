@@ -51,10 +51,12 @@ export default function BreachTimeline({ breaches }) {
   }
 
   const AXIS_Y      = 36;
-  const STEMS       = [28, 65, 102, 139];
+  const NUM_ROWS    = 7;
+  const ROW_STEP    = 42;
+  const STEMS       = Array.from({ length: NUM_ROWS }, (_, i) => 28 + i * ROW_STEP);
   const NODE_TOP    = STEMS.map(s => AXIS_Y + 2 + s);
   const LABEL_TOP   = NODE_TOP.map(t => t + 14 + 6);
-  const CONTAINER_H = LABEL_TOP[3] + 28;
+  const CONTAINER_H = LABEL_TOP[NUM_ROWS - 1] + 32;
 
   // Same-date grouping to spread clusters horizontally
   const dateGroups = {};
@@ -72,13 +74,14 @@ export default function BreachTimeline({ breaches }) {
     return base + (idx - (group.length - 1) / 2) * step;
   }
 
-  // Greedy row assignment to minimise label overlap
-  const rowLastLeft = [null, null, null, null];
+  // Greedy row assignment — picks the row with the most horizontal clearance
+  // from the previous item in that row, giving each label room to breathe.
+  const rowLastLeft = Array(NUM_ROWS).fill(null);
   const rowOf = {};
   for (const b of sorted) {
     const left = leftPct(b);
     let bestRow = 0, bestGap = -Infinity;
-    for (let r = 0; r < 4; r++) {
+    for (let r = 0; r < NUM_ROWS; r++) {
       const gap = rowLastLeft[r] === null ? Infinity : left - rowLastLeft[r];
       if (gap > bestGap) { bestGap = gap; bestRow = r; }
     }
