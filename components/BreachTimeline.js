@@ -91,9 +91,6 @@ export default function BreachTimeline({ breaches }) {
 
   const ticks = quarterlyTicks(earliest, latest);
 
-  // All unique categories in this dataset (for legend)
-  const categories = [...new Set(sorted.map(b => b.attackCategory))];
-
   function handleNodeEnter(e, breach) {
     setTooltip({ x: e.clientX, y: e.clientY, breach });
   }
@@ -300,26 +297,6 @@ export default function BreachTimeline({ breaches }) {
         </div>
       )}
 
-      {/* Legend */}
-      <div style={{
-        display: 'flex', gap: '16px', flexWrap: 'wrap',
-        marginTop: '16px', justifyContent: 'center',
-      }}>
-        {categories.map(cat => (
-          <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <div style={{
-              width: '10px', height: '10px', borderRadius: '50%',
-              background: categoryColor(cat),
-              border: `2px solid ${categoryColor(cat)}40`,
-            }} />
-            <span style={{
-              fontFamily: "'Roboto', sans-serif",
-              fontSize: '0.72rem',
-              color: '#8896b0',
-            }}>{cat}</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
