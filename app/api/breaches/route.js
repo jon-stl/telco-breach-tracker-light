@@ -160,7 +160,7 @@ function parseCustomers(details, consequences) {
 function buildBreaches(dataRows) {
   const COL = {
     telco: 0, country: 1, attackDate: 2, disclosureDate: 3,
-    details: 4, attackType: 5, attacker: 6, consequences: 7,
+    attackType: 4, details: 5, attacker: 6, consequences: 7,
     lastUpdated: 8, link: 9,
   };
 
