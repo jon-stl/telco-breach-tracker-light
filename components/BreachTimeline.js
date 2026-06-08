@@ -175,9 +175,10 @@ export default function BreachTimeline({ breaches }) {
                 position: 'absolute',
                 left: `${left}%`,
                 top: `${AXIS_Y + 2}px`,
-                width: '1px',
+                width: '2px',
                 height: `${stemH}px`,
-                background: `linear-gradient(180deg, ${color}99, ${color}55)`,
+                background: color,
+                opacity: 0.45,
                 transform: 'translateX(-50%)',
                 pointerEvents: 'none',
               }} />
