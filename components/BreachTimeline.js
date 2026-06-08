@@ -159,20 +159,6 @@ export default function BreachTimeline({ breaches }) {
           }} />
         ))}
 
-        {/* Hover hint */}
-        <div style={{
-          position: 'absolute',
-          bottom: '4px',
-          right: '0',
-          fontFamily: "'Roboto', sans-serif",
-          fontSize: '0.68rem',
-          color: '#aab4c8',
-          fontStyle: 'italic',
-          pointerEvents: 'none',
-        }}>
-          Hover over marker for detail
-        </div>
-
         {/* Breach nodes */}
         {sorted.map((breach) => {
           const left  = leftPct(breach);
