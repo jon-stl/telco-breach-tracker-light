@@ -41,7 +41,12 @@ const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'
 export default function BreachTimeline({ breaches }) {
   const [tooltip, setTooltip] = useState(null); // { x, y, breach }
 
-  const sorted = [...breaches].sort((a, b) => new Date(a.attackDate) - new Date(b.attackDate));
+  // Only show incidents from the last 12 months
+  const cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - 1);
+  const sorted = [...breaches]
+    .filter(b => new Date(b.attackDate) >= cutoff)
+    .sort((a, b) => new Date(a.attackDate) - new Date(b.attackDate));
   const earliest = new Date(sorted[0].attackDate);
   const latest   = new Date(sorted[sorted.length - 1].attackDate);
   const range    = latest - earliest || 1;
@@ -153,6 +158,20 @@ export default function BreachTimeline({ breaches }) {
             transform: 'translateX(-50%)',
           }} />
         ))}
+
+        {/* Hover hint */}
+        <div style={{
+          position: 'absolute',
+          bottom: '4px',
+          right: '0',
+          fontFamily: "'Roboto', sans-serif",
+          fontSize: '0.68rem',
+          color: '#aab4c8',
+          fontStyle: 'italic',
+          pointerEvents: 'none',
+        }}>
+          Hover over marker for detail
+        </div>
 
         {/* Breach nodes */}
         {sorted.map((breach) => {
@@ -276,24 +295,9 @@ export default function BreachTimeline({ breaches }) {
             fontFamily: "'Roboto', sans-serif",
             fontSize: '12px',
             color: '#8896b0',
-            marginBottom: '10px',
-            paddingBottom: '10px',
-            borderBottom: '1px solid rgba(42,49,77,0.08)',
           }}>
             {tooltip.breach.country} · {new Date(tooltip.breach.attackDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
-          {tooltip.breach.details && (
-            <div style={{
-              fontFamily: "'Roboto', sans-serif",
-              fontSize: '12px',
-              color: '#4a5568',
-              lineHeight: 1.6,
-            }}>
-              {tooltip.breach.details.length > 220
-                ? tooltip.breach.details.slice(0, 220) + '…'
-                : tooltip.breach.details}
-            </div>
-          )}
         </div>
       )}
 
