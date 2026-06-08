@@ -20,6 +20,12 @@ function CountryFlag({ country }) {
   const flags = {
     'Netherlands': '🇳🇱', 'Singapore': '🇸🇬', 'South Korea': '🇰🇷',
     'UK': '🇬🇧', 'France': '🇫🇷', 'Belgium': '🇧🇪', 'Canada': '🇨🇦',
+    'Australia': '🇦🇺', 'USA': '🇺🇸', 'Japan': '🇯🇵', 'Germany': '🇩🇪',
+    'Italy': '🇮🇹', 'Spain': '🇪🇸', 'Sweden': '🇸🇪', 'Norway': '🇳🇴',
+    'Denmark': '🇩🇰', 'Finland': '🇫🇮', 'Portugal': '🇵🇹', 'India': '🇮🇳',
+    'Indonesia': '🇮🇩', 'Thailand': '🇹🇭', 'Vietnam': '🇻🇳', 'UAE': '🇦🇪',
+    'Saudi Arabia': '🇸🇦', 'South Africa': '🇿🇦', 'Nigeria': '🇳🇬', 'Kenya': '🇰🇪',
+    'Brazil': '🇧🇷', 'Mexico': '🇲🇽', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
   };
   return <span>{flags[country] || '🌐'}</span>;
 }
