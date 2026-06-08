@@ -234,6 +234,29 @@ export default function Home() {
           </Card>
         </div>
 
+        {/* ── Reporting delay note ─────────────────────────────────────────── */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          background: 'rgba(243,146,0,0.07)',
+          border: '1px solid rgba(243,146,0,0.25)',
+          borderLeft: '3px solid #f39200',
+          borderRadius: '8px',
+          padding: '10px 16px',
+          marginBottom: 'clamp(20px, 3vw, 36px)',
+        }}>
+          <span style={{ color: '#f39200', fontSize: '15px', flexShrink: 0 }}>ⓘ</span>
+          <span style={{
+            fontFamily: "'Roboto', sans-serif",
+            fontSize: '0.8rem',
+            color: '#6b7a99',
+            fontStyle: 'italic',
+          }}>
+            There is typically a delay between incident and reporting
+          </span>
+        </div>
+
         {/* ── Charts ───────────────────────────────────────────────────────── */}
         <div style={{
           display: 'grid',
@@ -260,7 +283,7 @@ export default function Home() {
           gap: '12px',
         }}>
           <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#b0bbd0' }}>
-            © STL Partners {new Date().getFullYear()} · Data sourced from public disclosures and threat intelligence reports · There is typically a delay between incident and reporting
+            © STL Partners {new Date().getFullYear()} · Data sourced from public disclosures and threat intelligence reports
           </div>
           <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#b0bbd0' }}>
             {breaches.length} incidents tracked · {new Set(breaches.map(b => b.country)).size} countries
