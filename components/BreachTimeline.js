@@ -135,7 +135,7 @@ export default function BreachTimeline({ breaches }) {
           left: '5%',
           right: '5%',
           height: '2px',
-          background: 'linear-gradient(90deg, rgba(42,49,77,0.1), rgba(42,49,77,0.35), rgba(42,49,77,0.1))',
+          background: 'rgba(42,49,77,0.22)',
           borderRadius: '2px',
         }}>
           <div style={{
@@ -177,7 +177,7 @@ export default function BreachTimeline({ breaches }) {
                 top: `${AXIS_Y + 2}px`,
                 width: '1px',
                 height: `${stemH}px`,
-                background: `linear-gradient(180deg, ${color}80, ${color}20)`,
+                background: `linear-gradient(180deg, ${color}99, ${color}55)`,
                 transform: 'translateX(-50%)',
                 pointerEvents: 'none',
               }} />
