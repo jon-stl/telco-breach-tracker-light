@@ -132,8 +132,8 @@ export default function BreachTimeline({ breaches }) {
         <div style={{
           position: 'absolute',
           top: `${AXIS_Y}px`,
-          left: '5%',
-          right: '5%',
+          left: 0,
+          right: 0,
           height: '2px',
           background: 'rgba(42,49,77,0.22)',
           borderRadius: '2px',
