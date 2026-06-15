@@ -120,7 +120,7 @@ function StatCard({ value, label, suffix = '', icon, color, bgColor, delay = 0 }
 
 export default function StatsRow({ breaches }) {
   const totalIncidents = breaches.length;
-  const operators      = new Set(breaches.map(b => b.telco)).size;
+  const operators      = new Set(breaches.filter(b => b.telco.toLowerCase() !== 'unclear').map(b => b.telco)).size;
   const countries      = new Set(breaches.map(b => b.country)).size;
 
   return (

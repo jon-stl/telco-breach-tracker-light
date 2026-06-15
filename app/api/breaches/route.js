@@ -170,7 +170,7 @@ function buildBreaches(dataRows) {
 
   for (const row of dataRows) {
     const telco = (row[COL.telco] || '').trim();
-    if (!telco || telco.toLowerCase() === 'unclear') continue;
+    if (!telco) continue;
 
     const country        = (row[COL.country]       || '').trim();
     const attackDate     = parseDate(row[COL.attackDate]);

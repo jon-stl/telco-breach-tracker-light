@@ -74,7 +74,7 @@ export default function BreachTimeline({ breaches }) {
     const group = dateGroups[breach.attackDate];
     if (group.length === 1) return base;
     const idx    = group.indexOf(breach.id);
-    const spread = Math.min(group.length * 2.5, 10);
+    const spread = Math.min(group.length * 1.2, 4);
     const step   = spread / (group.length - 1);
     return base + (idx - (group.length - 1) / 2) * step;
   }
@@ -288,6 +288,25 @@ export default function BreachTimeline({ breaches }) {
         </div>
       )}
 
+      {/* Reporting delay note */}
+      <div style={{
+        marginTop: '18px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '7px',
+        borderTop: '1px solid rgba(42,49,77,0.07)',
+        paddingTop: '12px',
+      }}>
+        <span style={{ color: '#f39200', fontSize: '13px', flexShrink: 0 }}>ⓘ</span>
+        <span style={{
+          fontFamily: "'Roboto', sans-serif",
+          fontSize: '0.72rem',
+          color: '#aab4c8',
+          fontStyle: 'italic',
+        }}>
+          There is typically a delay between incident and reporting
+        </span>
+      </div>
     </div>
   );
 }

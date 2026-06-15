@@ -234,29 +234,6 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* ── Reporting delay note ─────────────────────────────────────────── */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          background: 'rgba(243,146,0,0.07)',
-          border: '1px solid rgba(243,146,0,0.25)',
-          borderLeft: '3px solid #f39200',
-          borderRadius: '8px',
-          padding: '10px 16px',
-          marginBottom: 'clamp(20px, 3vw, 36px)',
-        }}>
-          <span style={{ color: '#f39200', fontSize: '15px', flexShrink: 0 }}>ⓘ</span>
-          <span style={{
-            fontFamily: "'Roboto', sans-serif",
-            fontSize: '0.8rem',
-            color: '#6b7a99',
-            fontStyle: 'italic',
-          }}>
-            There is typically a delay between incident and reporting
-          </span>
-        </div>
-
         {/* ── Charts ───────────────────────────────────────────────────────── */}
         <div style={{
           display: 'grid',
