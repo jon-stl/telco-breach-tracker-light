@@ -7,7 +7,7 @@ export default function FloatingBackground() {
     { size: 220, top: '15%',   right: '-40px', opacity: 0.05, animation: 'floatB 22s ease-in-out infinite', color: '#e3051c', delay: '-6s' },
     { size: 180, bottom: '20%', left: '5%', opacity: 0.06, animation: 'floatC 16s ease-in-out infinite', color: '#f39200', delay: '-3s' },
     { size: 140, top: '45%', right: '8%', opacity: 0.05, animation: 'floatA 20s ease-in-out infinite', color: '#2a314d', delay: '-9s' },
-    { size: 100, bottom: '8%', right: '20%', opacity: 0.04, animation: 'floatB 14s ease-in-out infinite', color: '#059669', delay: '-4s' },
+    { size: 100, bottom: '8%', right: '20%', opacity: 0.04, animation: 'floatB 14s ease-in-out infinite', color: '#6472AD', delay: '-4s' },
   ];
 
   return (

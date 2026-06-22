@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 // Known categories get specific colours; anything else gets a deterministic fallback.
 const KNOWN_COLORS = {
-  'APT / Espionage':   '#e3051c',
-  'Ransomware':        '#f39200',
-  'Data Breach':       '#7b6cf0',
-  'Malware / BPFDoor': '#00a87a',
-  'Cyberattack':       '#4a9eff',
+  'APT / Espionage':   '#E2051C',
+  'Ransomware':        '#F39100',
+  'Data Breach':       '#6472AD',
+  'Malware / BPFDoor': '#5E6378',
+  'Cyberattack':       '#98A1C9',
 };
-const FALLBACK_PALETTE = ['#6366f1', '#0891b2', '#d97706', '#9333ea', '#059669', '#dc2626'];
+const FALLBACK_PALETTE = ['#E84B5D', '#F4AC5B', '#282F4C', '#9BA0B1', '#FB5B6C', '#FFBE5F'];
 
 function categoryColor(name) {
   if (KNOWN_COLORS[name]) return KNOWN_COLORS[name];

@@ -48,10 +48,10 @@ const LABEL_OFFSETS = {
 };
 
 function getColor(count) {
-  if (count >= 4) return '#e3051c';
-  if (count >= 3) return '#d44000';
-  if (count >= 2) return '#f39200';
-  return '#2a7dc9';
+  if (count >= 4) return '#E2051C';
+  if (count >= 3) return '#E84B5D';
+  if (count >= 2) return '#F39100';
+  return '#6472AD';
 }
 
 export function GlobalMap({ breaches }) {
@@ -260,10 +260,10 @@ export function GlobalMap({ breaches }) {
         fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#6b7a99',
       }}>
         {[
-          { color: '#2a7dc9', label: '1 incident' },
-          { color: '#f39200', label: '2 incidents' },
-          { color: '#d44000', label: '3 incidents' },
-          { color: '#e3051c', label: '4+ incidents' },
+          { color: '#6472AD', label: '1 incident' },
+          { color: '#F39100', label: '2 incidents' },
+          { color: '#E84B5D', label: '3 incidents' },
+          { color: '#E2051C', label: '4+ incidents' },
         ].map(({ color, label }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: color }} />
