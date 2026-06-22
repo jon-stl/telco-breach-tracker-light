@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Telco Cyber Breach Tracker | STL Partners',
+  title: 'Telco Cyber Incident Board | STL Partners',
   description: 'Tracking major cybersecurity incidents affecting global telecommunications operators.',
   other: {
     'theme-color': '#f0f3f8',

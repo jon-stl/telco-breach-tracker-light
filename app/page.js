@@ -190,7 +190,7 @@ export default function Home() {
               textTransform: 'uppercase',
               margin: 0,
             }}>
-              Telco Cyber Breach Tracker
+              Telco Cyber Incident Board
             </h1>
             <div style={{
               fontFamily: "'Roboto', sans-serif",
