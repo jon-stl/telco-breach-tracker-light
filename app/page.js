@@ -17,10 +17,10 @@ function Card({ title, children, highlight = false }) {
       borderRadius: '18px',
       padding: 'clamp(20px, 3vw, 32px)',
       boxShadow: highlight
-        ? '0 4px 24px rgba(5,150,105,0.12), 0 1px 4px rgba(42,49,77,0.06)'
+        ? '0 4px 24px rgba(100,114,173,0.12), 0 1px 4px rgba(42,49,77,0.06)'
         : '0 2px 16px rgba(42,49,77,0.07), 0 1px 4px rgba(42,49,77,0.04)',
       border: highlight
-        ? '1px solid rgba(5,150,105,0.2)'
+        ? '1px solid rgba(100,114,173,0.2)'
         : '1px solid rgba(42,49,77,0.07)',
       position: 'relative',
       overflow: 'hidden',
@@ -31,7 +31,7 @@ function Card({ title, children, highlight = false }) {
         top: 0, left: 0, right: 0,
         height: '3px',
         background: highlight
-          ? 'linear-gradient(90deg, #059669, #34d399)'
+          ? 'linear-gradient(90deg, #282F4C, #6472AD)'
           : 'linear-gradient(90deg, #e3051c, #f39200)',
         borderRadius: '18px 18px 0 0',
       }} />
@@ -47,7 +47,7 @@ function Card({ title, children, highlight = false }) {
           <div style={{
             width: '3px',
             height: '18px',
-            background: highlight ? '#059669' : '#e3051c',
+            background: highlight ? '#6472AD' : '#e3051c',
             borderRadius: '2px',
             flexShrink: 0,
           }} />
@@ -76,15 +76,15 @@ function UpdatedBadge() {
       display: 'inline-flex',
       alignItems: 'center',
       gap: '6px',
-      background: 'rgba(5,150,105,0.08)',
-      border: '1px solid rgba(5,150,105,0.2)',
+      background: 'rgba(100,114,173,0.08)',
+      border: '1px solid rgba(100,114,173,0.2)',
       borderRadius: '20px',
       padding: '4px 12px',
     }}>
       <span style={{
         width: '7px', height: '7px',
         borderRadius: '50%',
-        background: '#059669',
+        background: '#6472AD',
         display: 'inline-block',
         animation: 'blink 2s ease-in-out infinite',
       }} />
@@ -93,7 +93,7 @@ function UpdatedBadge() {
         fontSize: '0.62rem',
         fontWeight: 700,
         letterSpacing: '0.18em',
-        color: '#059669',
+        color: '#6472AD',
         textTransform: 'uppercase',
       }}>
         Live Data
@@ -199,7 +199,7 @@ export default function Home() {
               letterSpacing: '0.04em',
               marginTop: '6px',
             }}>
-              Tracking major cybersecurity incidents in global telecommunications
+              Tracking major cybersecurity incidents in global telecom operators
             </div>
           </div>
 

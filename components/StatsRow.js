@@ -141,7 +141,7 @@ export default function StatsRow({ breaches }) {
 
       <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <StatCard value={totalIncidents} label="Incidents Tracked"       icon="📋" color="#e3051c" bgColor="rgba(227,5,28,0.08)"   delay={0}   />
-        <StatCard value={operators}      label="Operators Targeted"       icon="📡" color="#059669" bgColor="rgba(5,150,105,0.08)" delay={100} />
+        <StatCard value={operators}      label="Operators Targeted"       icon="📡" color="#6472AD" bgColor="rgba(100,114,173,0.08)" delay={100} />
         <StatCard value={countries}      label="Countries Affected"       icon="🌍" color="#f39200" bgColor="rgba(243,146,0,0.08)" delay={200} />
       </div>
     </div>

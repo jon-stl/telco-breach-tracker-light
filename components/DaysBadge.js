@@ -36,7 +36,7 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
           width: '200px',
           height: '200px',
           borderRadius: '50%',
-          border: '2px solid rgba(5, 150, 105, 0.3)',
+          border: '2px solid rgba(100, 114, 173, 0.3)',
           animation: 'ringPulse 3s ease-in-out infinite',
         }} />
         <div style={{
@@ -44,7 +44,7 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
           width: '220px',
           height: '220px',
           borderRadius: '50%',
-          border: '1px solid rgba(5, 150, 105, 0.15)',
+          border: '1px solid rgba(100, 114, 173, 0.15)',
           animation: 'ringPulse 3s ease-in-out infinite 1.5s',
         }} />
 
@@ -53,13 +53,13 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
           width: '172px',
           height: '172px',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-          border: '3px solid rgba(5, 150, 105, 0.35)',
+          background: 'linear-gradient(135deg, #eef0f8 0%, #dde0ef 100%)',
+          border: '3px solid rgba(100, 114, 173, 0.35)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 8px 32px rgba(5, 150, 105, 0.18), 0 2px 8px rgba(5, 150, 105, 0.1)',
+          boxShadow: '0 8px 32px rgba(100, 114, 173, 0.18), 0 2px 8px rgba(100, 114, 173, 0.1)',
           position: 'relative',
           zIndex: 1,
         }}>
@@ -73,7 +73,7 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
             fontFamily: "'PT Sans', sans-serif",
             fontSize: 'clamp(3rem, 7vw, 4.5rem)',
             fontWeight: 700,
-            color: '#065f46',
+            color: '#282F4C',
             lineHeight: 1,
             letterSpacing: '-0.02em',
           }}>
@@ -84,7 +84,7 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
             fontSize: '0.7rem',
             fontWeight: 600,
             letterSpacing: '0.12em',
-            color: '#059669',
+            color: '#6472AD',
             textTransform: 'uppercase',
             marginTop: '2px',
           }}>
@@ -99,11 +99,11 @@ export default function DaysBadge({ lastBreachDate, lastBreachTelco, lastBreachC
           fontFamily: "'PT Sans', sans-serif",
           fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
           fontWeight: 700,
-          color: '#065f46',
+          color: '#282F4C',
           marginBottom: '6px',
           letterSpacing: '0.02em',
         }}>
-          Days Without a Reported Breach
+          Days without a reported breach
         </div>
         <div style={{
           fontFamily: "'Roboto', sans-serif",
