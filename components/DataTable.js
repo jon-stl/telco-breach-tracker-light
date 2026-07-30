@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
+import { CountryFlag } from './countries';
 
 export default function DataTable({ breaches }) {
   const [search, setSearch]               = useState('');
@@ -241,10 +242,3 @@ function Select({ value, options, onChange, label }) {
   );
 }
 
-function CountryFlag({ country }) {
-  const flags = {
-    'Netherlands': '🇳🇱', 'Singapore': '🇸🇬', 'South Korea': '🇰🇷',
-    'UK': '🇬🇧', 'France': '🇫🇷', 'Belgium': '🇧🇪',
-  };
-  return flags[country] || '🌐';
-}

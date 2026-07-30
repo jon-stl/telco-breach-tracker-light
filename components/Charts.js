@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { CountryFlag } from './countries';
 
 const KNOWN_COLORS = {
   'APT / Espionage':   '#E2051C',
@@ -14,20 +15,6 @@ function categoryColor(name) {
   let hash = 0;
   for (const c of (name || '')) hash = (hash * 31 + c.charCodeAt(0)) & 0xffffffff;
   return FALLBACK_PALETTE[Math.abs(hash) % FALLBACK_PALETTE.length];
-}
-
-function CountryFlag({ country }) {
-  const flags = {
-    'Netherlands': '🇳🇱', 'Singapore': '🇸🇬', 'South Korea': '🇰🇷',
-    'UK': '🇬🇧', 'France': '🇫🇷', 'Belgium': '🇧🇪', 'Canada': '🇨🇦',
-    'Australia': '🇦🇺', 'USA': '🇺🇸', 'Japan': '🇯🇵', 'Germany': '🇩🇪',
-    'Italy': '🇮🇹', 'Spain': '🇪🇸', 'Sweden': '🇸🇪', 'Norway': '🇳🇴',
-    'Denmark': '🇩🇰', 'Finland': '🇫🇮', 'Portugal': '🇵🇹', 'India': '🇮🇳',
-    'Indonesia': '🇮🇩', 'Thailand': '🇹🇭', 'Vietnam': '🇻🇳', 'UAE': '🇦🇪',
-    'Saudi Arabia': '🇸🇦', 'South Africa': '🇿🇦', 'Nigeria': '🇳🇬', 'Kenya': '🇰🇪',
-    'Brazil': '🇧🇷', 'Mexico': '🇲🇽', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
-  };
-  return <span>{flags[country] || '🌐'}</span>;
 }
 
 // Matches the color scale used in GlobalMap
