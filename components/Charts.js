@@ -163,7 +163,7 @@ export function AttackTypeChart({ breaches }) {
           </text>
           <text x={cx} y={cy + 12} textAnchor="middle" fill="#8896b0"
             style={{ fontFamily: "'Roboto', sans-serif", fontSize: '10px', letterSpacing: '0.08em' }}>
-            {hovered !== null ? 'INCIDENTS' : 'TOTAL'}
+            {hovered !== null ? 'BREACHES' : 'TOTAL'}
           </text>
         </svg>
       </div>
@@ -195,7 +195,7 @@ export function AttackTypeChart({ breaches }) {
                 {seg.name}
               </div>
               <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.65rem', color: '#8896b0' }}>
-                {seg.value} incident{seg.value > 1 ? 's' : ''} · {Math.round(seg.pct * 100)}%
+                {seg.value} breach{seg.value > 1 ? 'es' : ''} · {Math.round(seg.pct * 100)}%
               </div>
             </div>
           </div>

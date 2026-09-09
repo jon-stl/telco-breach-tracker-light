@@ -190,7 +190,7 @@ export default function Home() {
               textTransform: 'uppercase',
               margin: 0,
             }}>
-              Telco Cyber Incident Board
+              Telco Cyber Breach Board
             </h1>
             <div style={{
               fontFamily: "'Roboto', sans-serif",
@@ -199,7 +199,7 @@ export default function Home() {
               letterSpacing: '0.04em',
               marginTop: '6px',
             }}>
-              Tracking major cybersecurity incidents in global telecom operators
+              Tracking major cybersecurity breaches in global telecom operators
             </div>
           </div>
 
@@ -229,7 +229,7 @@ export default function Home() {
 
         {/* ── Timeline ─────────────────────────────────────────────────────── */}
         <div style={{ marginBottom: 'clamp(20px, 3vw, 36px)' }}>
-          <Card title="Incident Timeline — Hover over marker for detail">
+          <Card title="Breach Timeline — Hover over marker for detail">
             <BreachTimeline breaches={breaches} />
           </Card>
         </div>
@@ -241,10 +241,10 @@ export default function Home() {
           gap: 'clamp(12px, 2vw, 24px)',
           marginBottom: 'clamp(20px, 3vw, 36px)',
         }}>
-          <Card title="Incidents by Country">
+          <Card title="Breaches by Country">
             <CountryChart breaches={breaches} />
           </Card>
-          <Card title="Global Incident Map">
+          <Card title="Global Breach Map">
             <GlobalMap breaches={breaches} />
           </Card>
         </div>
@@ -263,7 +263,7 @@ export default function Home() {
             © STL Partners {new Date().getFullYear()} · Data sourced from public disclosures and threat intelligence reports
           </div>
           <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#b0bbd0' }}>
-            {breaches.length} incidents tracked · {new Set(breaches.map(b => b.country)).size} countries
+            {breaches.length} breaches tracked · {new Set(breaches.map(b => b.country)).size} countries
           </div>
         </footer>
       </div>

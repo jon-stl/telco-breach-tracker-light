@@ -119,7 +119,7 @@ function StatCard({ value, label, suffix = '', icon, color, bgColor, delay = 0 }
 }
 
 export default function StatsRow({ breaches }) {
-  const totalIncidents = breaches.length;
+  const totalBreaches = breaches.length;
   const operators      = new Set(breaches.filter(b => b.telco.toLowerCase() !== 'unclear').map(b => b.telco)).size;
   const countries      = new Set(breaches.map(b => b.country)).size;
 
@@ -140,7 +140,7 @@ export default function StatsRow({ breaches }) {
       </div>
 
       <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <StatCard value={totalIncidents} label="Incidents Tracked"       icon="📋" color="#e3051c" bgColor="rgba(227,5,28,0.08)"   delay={0}   />
+        <StatCard value={totalBreaches} label="Breaches Tracked"       icon="📋" color="#e3051c" bgColor="rgba(227,5,28,0.08)"   delay={0}   />
         <StatCard value={operators}      label="Operators Targeted"       icon="📡" color="#6472AD" bgColor="rgba(100,114,173,0.08)" delay={100} />
         <StatCard value={countries}      label="Countries Affected"       icon="🌍" color="#f39200" bgColor="rgba(243,146,0,0.08)" delay={200} />
       </div>
