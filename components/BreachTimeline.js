@@ -41,7 +41,7 @@ const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'
 export default function BreachTimeline({ breaches }) {
   const [tooltip, setTooltip] = useState(null); // { x, y, breach }
 
-  // Only show incidents from the last 12 months
+  // Only show breaches from the last 12 months
   const cutoff = new Date();
   cutoff.setFullYear(cutoff.getFullYear() - 1);
   const sorted = [...breaches]
@@ -304,7 +304,7 @@ export default function BreachTimeline({ breaches }) {
           color: '#aab4c8',
           fontStyle: 'italic',
         }}>
-          There is typically a delay between incident and reporting
+          There is typically a delay between breach and reporting
         </span>
       </div>
     </div>

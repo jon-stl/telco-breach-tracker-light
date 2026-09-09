@@ -74,7 +74,7 @@ export default function DataTable({ breaches }) {
         <Select value={filterCountry} options={countries} onChange={setFilterCountry} label="Country" />
 
         <div style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.75rem', color: '#8896b0', whiteSpace: 'nowrap', alignSelf: 'center' }}>
-          {filtered.length} of {breaches.length} incidents
+          {filtered.length} of {breaches.length} breaches
         </div>
       </div>
 
@@ -162,7 +162,7 @@ export default function DataTable({ breaches }) {
                             textTransform: 'uppercase',
                             marginBottom: '6px',
                           }}>
-                            Incident Details
+                            Breach Details
                           </div>
                           <p style={{ color: '#4a5568', lineHeight: 1.65, margin: 0, fontSize: '0.82rem' }}>
                             {breach.details}

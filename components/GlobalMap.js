@@ -24,7 +24,7 @@ function getColor(count) {
 export function GlobalMap({ breaches }) {
   const [tooltip, setTooltip] = useState(null);
 
-  // Aggregate incidents by country
+  // Aggregate breaches by country
   const countryData = {};
   for (const b of breaches) {
     if (!countryData[b.country]) countryData[b.country] = { count: 0, telcos: [] };
@@ -85,7 +85,7 @@ export function GlobalMap({ breaches }) {
 
             return (
               <Marker key={country} coordinates={coords}>
-                {/* Pulse rings — one per incident */}
+                {/* Pulse rings — one per breach */}
                 {Array.from({ length: count }).map((_, i) => (
                   <circle
                     key={i}
@@ -116,7 +116,7 @@ export function GlobalMap({ breaches }) {
                   onMouseLeave={() => setTooltip(null)}
                 />
 
-                {/* Incident count badge */}
+                {/* Breach count badge */}
                 {count > 1 && (
                   <text
                     textAnchor="middle"
@@ -191,7 +191,7 @@ export function GlobalMap({ breaches }) {
             paddingBottom: '10px',
             borderBottom: '1px solid rgba(42,49,77,0.08)',
           }}>
-            {tooltip.count} incident{tooltip.count > 1 ? 's' : ''}
+            {tooltip.count} breach{tooltip.count > 1 ? 'es' : ''}
           </div>
           <div style={{
             fontFamily: "'Roboto', sans-serif",
@@ -227,10 +227,10 @@ export function GlobalMap({ breaches }) {
         fontFamily: "'Roboto', sans-serif", fontSize: '0.72rem', color: '#6b7a99',
       }}>
         {[
-          { color: '#6472AD', label: '1 incident' },
-          { color: '#F39100', label: '2 incidents' },
-          { color: '#E84B5D', label: '3 incidents' },
-          { color: '#E2051C', label: '4+ incidents' },
+          { color: '#6472AD', label: '1 breach' },
+          { color: '#F39100', label: '2 breaches' },
+          { color: '#E84B5D', label: '3 breaches' },
+          { color: '#E2051C', label: '4+ breaches' },
         ].map(({ color, label }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: color }} />
