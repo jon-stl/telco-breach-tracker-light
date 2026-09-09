@@ -138,6 +138,17 @@ function parseDate(val) {
   return isNaN(d) ? null : d.toISOString().slice(0, 10);
 }
 
+// The "Links" cell (column M) can hold more than one line — a source URL
+// plus, occasionally, a second reference note appended below it — so pull
+// out the first http(s) URL rather than trusting the whole cell to be a link.
+function extractUrl(raw) {
+  const s = (raw || '').trim();
+  if (!s) return null;
+  const m = s.match(/https?:\/\/\S+/);
+  if (!m) return null;
+  return m[0].replace(/[)\]"'.,]+$/, ''); // trim trailing punctuation caught by the regex
+}
+
 function parseCustomers(details, consequences) {
   const text = [details, consequences].filter(Boolean).join(' ');
   const patterns = [
@@ -158,10 +169,18 @@ function parseCustomers(details, consequences) {
 }
 
 function buildBreaches(dataRows) {
+  // Confirmed against the real "Telco breach tracker latest" SharePoint sheet
+  // on 30 July 2026 (header row read directly from the workbook). Columns F
+  // and G are internal marketing notes ("not for website") and are only used
+  // below to help detect customer-impact numbers — they are never exposed as
+  // their own field. Column L ("Links") is a hyperlinked article title, not a
+  // URL — Graph's valuesOnly read returns the display text, not the href — so
+  // `link` reads from column M instead, which holds the actual https:// URL
+  // as plain text.
   const COL = {
     telco: 0, country: 1, attackDate: 2, disclosureDate: 3,
-    attackType: 4, details: 5, attacker: 6, consequences: 7,
-    lastUpdated: 8, link: 9,
+    details: 4, notes: 5, attackType: 7, attacker: 8,
+    consequences: 9, lastUpdated: 10, link: 12,
   };
 
   let lastUpdatedDate = new Date(0);
@@ -176,11 +195,12 @@ function buildBreaches(dataRows) {
     const attackDate     = parseDate(row[COL.attackDate]);
     const disclosureDate = parseDate(row[COL.disclosureDate]);
     const details        = (row[COL.details]       || '').trim();
+    const notes          = (row[COL.notes]         || '').trim();
     const attackTypeRaw  = (row[COL.attackType]    || '').trim();
     const attacker       = (row[COL.attacker]      || '').trim() || null;
     const consequences   = (row[COL.consequences]  || '').trim() || null;
     const lastUpdated    = parseDate(row[COL.lastUpdated]);
-    const link           = (row[COL.link]          || '').trim() || null;
+    const link           = extractUrl(row[COL.link]);
 
     if (!attackDate) continue;
 
@@ -190,7 +210,10 @@ function buildBreaches(dataRows) {
     }
 
     const attackCategory    = categorise(attackTypeRaw);
-    const customersAffected = parseCustomers(details, consequences);
+    // Customer-impact figures often live in the internal "notes" column
+    // rather than the public-facing details/consequences text, so include
+    // it in the scan even though it's never returned as its own field.
+    const customersAffected = parseCustomers(details, [notes, consequences].filter(Boolean).join(' '));
     const severity          = inferSeverity(attackCategory, customersAffected, attacker);
 
     breaches.push({
