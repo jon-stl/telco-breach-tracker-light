@@ -41,14 +41,17 @@ const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'
 export default function BreachTimeline({ breaches }) {
   const [tooltip, setTooltip] = useState(null); // { x, y, breach }
 
-  // Only show breaches from the last 12 months
-  const cutoff = new Date();
+  // Only show breaches from the last 12 months. The axis always spans the
+  // full 12 months (a year ago → today), even if there were no breaches at
+  // the start or end of that window, so the heading "last 12 months" is true.
+  const today  = new Date();
+  const cutoff = new Date(today);
   cutoff.setFullYear(cutoff.getFullYear() - 1);
   const sorted = [...breaches]
     .filter(b => new Date(b.attackDate) >= cutoff)
     .sort((a, b) => new Date(a.attackDate) - new Date(b.attackDate));
-  const earliest = new Date(sorted[0].attackDate);
-  const latest   = new Date(sorted[sorted.length - 1].attackDate);
+  const earliest = cutoff;
+  const latest   = today;
   const range    = latest - earliest || 1;
 
   function pct(date) {
