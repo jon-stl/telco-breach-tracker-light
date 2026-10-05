@@ -243,7 +243,11 @@ export default function BreachTimeline({ breaches }) {
       {tooltip && (
         <div style={{
           position: 'fixed',
-          left: tooltip.x + 16,
+                    // Flip to the left of the cursor near the right edge so the
+          // (now taller, wider) tooltip isn't clipped inside the iframe.
+          left: typeof window !== 'undefined' && tooltip.x + 356 > window.innerWidth
+            ? Math.max(8, tooltip.x - 336)
+            : tooltip.x + 16,
           top: tooltip.y - 20,
           background: 'white',
           borderRadius: '12px',
@@ -285,9 +289,28 @@ export default function BreachTimeline({ breaches }) {
             fontFamily: "'Roboto', sans-serif",
             fontSize: '12px',
             color: '#8896b0',
+                        ...(tooltip.breach.details ? {
+              marginBottom: '10px',
+              paddingBottom: '10px',
+              borderBottom: '1px solid rgba(42,49,77,0.08)',
+            } : {}),
           }}>
             {tooltip.breach.country} · {new Date(tooltip.breach.attackDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
+                      {/* Attack summary (sheet column E). Columns F and G are internal
+              notes and are deliberately never shown. */}
+          {tooltip.breach.details && (
+            <div style={{
+              fontFamily: "'Roboto', sans-serif",
+              fontSize: '12px',
+              color: '#4a5568',
+              lineHeight: 1.6,
+            }}>
+              {tooltip.breach.details.length > 220
+                ? tooltip.breach.details.slice(0, 220).trimEnd() + '…'
+                : tooltip.breach.details}
+            </div>
+          )}
         </div>
       )}
 
